@@ -1,8 +1,10 @@
 # uRDP
+
 PyTorch Code for Universal Rate-Distortion-Perception Representations for Lossy Compression
 <p float="center">
   <img src="https://i.imgur.com/DjCtjdM.png"/> 
 </p>
+
 A compression system with single encoder `f` and multiple decoders/discriminators. The quantizer `Q` produces compressed representation `z`. Top: model optimized for low distortion. At low rates, this causes blurriness. Bottom: high perceptual quality. Blurriness is eliminated, but the reconstruction is less faithful to original.
 
 ### [[Paper]](https://arxiv.org/abs/2106.10311)
@@ -23,6 +25,7 @@ A base encoder from the first stage is then chosen to have its weights frozen an
 <p float="center">
   <img src="https://i.imgur.com/vBjpOuR.png"/> 
 </p>
+
 Bolded points: end-to-end models (encoder and decoder/discriminator both trained). Unbolded points: universal models (frozen encoder, only decoder/discriminator trained). See `code_to_recreate_experiments.py` for the settings used to recreate the experiments in the paper: these codeblocks should be imported to `run_with_params.py` to recreate the results from the figures in the paper. The training is all done in `train.py`, with various helper functions spread through the other files. 
 
 Note that common randomness is used throughout each training step, which in practice can be emulated through a shared random seed between sender and receiver. We use dithered quantization as follows: given encoder output `f(x)` and shared randomness `u`, the sender computes `z=Quantize(f(x)+u)` and the receiver recovers `z-u` to pass to the decoder.
