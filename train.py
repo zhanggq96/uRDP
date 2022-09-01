@@ -37,7 +37,7 @@ def _lr_factor(epoch, dataset, mode=None):
             return 1/5
         else:
             return 1/50
-    elif dataset == 'fasion_mnist':
+    elif dataset == 'fashion_mnist':
         if epoch < 20:
             return 1
         elif epoch < 35:
@@ -718,7 +718,7 @@ if __name__ == '__main__':
     parser.add_argument("--batch_size", type=int, default=64, help="size of the batches")
     parser.add_argument("--n_cpu", type=int, default=8, help="number of cpu threads to use during batch generation")
     parser.add_argument("--img_size", type=int, default=28, help="size of each image dimension")
-    parser.add_argument('--quantize', type=int, default=1, help='DOES NOTHING RIGHT NOW')
+    parser.add_argument('--quantize', type=int, default=1, help='Whether to quantize or not. [Does nothing!] Always active.')
     parser.add_argument('--stochastic', type=int, default=1, help='add noise below quantization threshold (default: True)')
     parser.add_argument("--latent_dim_1", type=int, default=8, help="dimensionality of the latent space")
     parser.add_argument("--latent_dim_2", type=int, default=-1, help="dimensionality of the latent space for refinement model")

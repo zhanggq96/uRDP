@@ -1,4 +1,5 @@
 # Run these in "run_with_params.py".
+# A single block, dependent on a previous block, can be run in its own session as long as the previous block is complete.
 
 # ====================================
 # MNIST

@@ -18,6 +18,8 @@ See `requirements.txt`. It should work on most builds.
 
 ## Training
 
+See `code_to_recreate_experiments.py` for the settings used to recreate the experiments in the paper: these codeblocks should be imported to `run_with_params.py` to recreate the results from the figures in the paper.
+
 The first stage of training replicates the results of Blau & Michaeli (2019) by varying a parameter lambda to achieve various distortion-perception tradeoff points. We refer to these as end-to-end models. The distortion loss used is MSE and the perception loss is estimated through the discriminator of Wasserstein GAN. It is worth noting here that many common statistical measures can be used as a proxy for perceptual quality, through developments such as e.g. f-GAN. Finding the best such measure is an active field of research which is far more broad than the scope of this paper, and as such we choose Wasserstein GAN for simplicity and stability.
 
 A base encoder from the first stage is then chosen to have its weights frozen and used to train new decoders/discriminators along different tradeoff points. These are compared to the tradeoff points from end-to-end models. The end result of our paper seems to indicate that there is very little to lose by reusing the encoder in this way on MNIST and SVHN.
@@ -26,7 +28,7 @@ A base encoder from the first stage is then chosen to have its weights frozen an
   <img src="https://i.imgur.com/vBjpOuR.png"/> 
 </p>
 
-Bolded points: end-to-end models (encoder and decoder/discriminator both trained). Unbolded points: universal models (frozen encoder, only decoder/discriminator trained). See `code_to_recreate_experiments.py` for the settings used to recreate the experiments in the paper: these codeblocks should be imported to `run_with_params.py` to recreate the results from the figures in the paper. The training is all done in `train.py`, with various helper functions spread through the other files. 
+Bolded points: end-to-end models (encoder and decoder/discriminator both trained). Unbolded points: universal models (frozen encoder, only decoder/discriminator trained). The training is all done in `train.py`, with various helper functions spread through the other files. 
 
 Note that common randomness is used throughout each training step, which in practice can be emulated through a shared random seed between sender and receiver. We use dithered quantization as follows: given encoder output `f(x)` and shared randomness `u`, the sender computes `z=Quantize(f(x)+u)` and the receiver recovers `z-u` to pass to the decoder.
 
